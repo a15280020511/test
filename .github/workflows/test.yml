@@ -21,5 +21,28 @@ jobs:
           python -m pip install -U pip
           pip install -e . --no-deps
           pip install pydantic pytest
-      - name: Run tests
-        run: pytest -q
+      - name: Run policy and maintenance tests
+        run: |
+          if [ -f tests/test_live_openrouter_free.py ]; then
+            pytest -q --ignore=tests/test_live_openrouter_free.py
+          else
+            pytest -q
+          fi
+      - name: Check OpenRouter secret for live free smoke
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          if [ -f tests/test_live_openrouter_free.py ] && [ -z "$OPENROUTER_API_KEY" ]; then
+            echo "OPENROUTER_API_KEY missing"
+            exit 1
+          fi
+          echo "live free smoke secret check passed or skipped"
+      - name: Run live OpenRouter free smoke
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          if [ -f tests/test_live_openrouter_free.py ]; then
+            pytest -q tests/test_live_openrouter_free.py
+          else
+            echo "no live free smoke test present"
+          fi
