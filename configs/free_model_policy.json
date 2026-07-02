@@ -1,0 +1,17 @@
+{
+  "default_test_policy": "free_models_only",
+  "require_free_suffix_for_live_tests": true,
+  "forbid_paid_models_by_default": true,
+  "allow_mock_only_when_test_mode_true": true,
+  "allowed_live_test_models": [
+    "cohere/north-mini-code:free",
+    "nvidia/nemotron-3-ultra-550b-a55b:free"
+  ],
+  "blocked_defaults": [
+    "openrouter:auto"
+  ],
+  "notes": [
+    "Routine tests must use mock mode or explicit :free OpenRouter models.",
+    "Paid models require an intentional config change and should not be used for smoke tests."
+  ]
+}
