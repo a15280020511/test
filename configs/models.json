@@ -1,0 +1,71 @@
+{
+  "provider": "openrouter",
+  "budget": {
+    "test_mode": true,
+    "prefer_free_models": true,
+    "max_calls_per_task": 5,
+    "max_cost_usd_per_task": 0.0,
+    "allow_paid_models": false,
+    "allow_expensive_models": false
+  },
+  "roles": {
+    "planner": {
+      "capability": [
+        "reasoning",
+        "structured_output"
+      ],
+      "max_calls": 1
+    },
+    "modeler": {
+      "capability": [
+        "reasoning",
+        "modeling",
+        "structured_output"
+      ],
+      "max_calls": 1
+    },
+    "red_team": {
+      "capability": [
+        "different_family",
+        "reasoning"
+      ],
+      "max_calls": 1
+    },
+    "judge": {
+      "capability": [
+        "reasoning",
+        "structured_output"
+      ],
+      "max_calls": 1
+    },
+    "reporter": {
+      "capability": [
+        "summarization",
+        "structured_output"
+      ],
+      "max_calls": 1
+    }
+  },
+  "fallback": {
+    "on_model_unavailable": "try_next_free_model",
+    "on_rate_limited": "degrade_to_mock_or_stop",
+    "on_budget_exceeded": "stop_and_report",
+    "on_bad_json": "retry_once_then_stop",
+    "on_context_overflow": "summarize_then_retry",
+    "on_tool_failure": "degrade_and_report"
+  },
+  "model_pool": {
+    "free_test": [
+      "openrouter:auto"
+    ],
+    "low_cost": [
+      "openrouter:auto"
+    ],
+    "strong_reasoning": [
+      "openrouter:auto"
+    ],
+    "red_team": [
+      "openrouter:auto"
+    ]
+  }
+}
