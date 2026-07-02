@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "hebc-lite"
 version = "0.1.0"
@@ -11,6 +15,10 @@ dependencies = [
 
 [project.scripts]
 hebc-lite = "hebc_lite.run_task:main"
+
+[tool.setuptools.packages.find]
+include = ["hebc_lite*"]
+exclude = ["tests*", "configs*", "tasks*", "jobs*", "reports*", "artifacts*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
