@@ -35,3 +35,7 @@ def test_live_openrouter_free_model_smoke():
     assert result.get("mode") == "openrouter_free_model"
     assert result.get("cost_usd") == 0.0
     assert "summary" in result or "recommendation" in result
+
+
+def test_live_openrouter_free_model_marker():
+    assert "live-free-smoke".replace("-", "_") == "live_free_smoke"
