@@ -26,6 +26,8 @@ jobs:
           HEBC_FULL_CI: "1"
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: python -m hebc_lite.plugin_registry
+      - name: Upstream source report
+        run: python -m hebc_lite.upstream_monitor
       - name: Health check
         env:
           HEBC_FULL_CI: "1"
