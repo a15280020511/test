@@ -11,6 +11,7 @@ from pydantic import ValidationError
 from .agents import run_expert_panel
 from .gpt_modeling import build_modeling_result
 from .mesa_runner import run_mesa
+from .orchestration import apply_webgpt_orchestration, tool_plan_for, validate_webgpt_orchestration
 from .report_writer import write_outputs
 from .router import decide_model_roles, decide_need_gpt_modeling, decide_need_mesa
 from .schemas import AgentCallRecord, Task
@@ -35,15 +36,24 @@ def run_task(task_file: str | Path) -> int:
         models_config = load_json("configs/models.json")
         mesa_config = load_json("configs/mesa.json")
 
-        roles = decide_model_roles(task, models_config)
-        need_gpt = decide_need_gpt_modeling(task, routing_config)
-        mesa_needed, mesa_reason = decide_need_mesa(task, routing_config)
+        orchestration_validation = validate_webgpt_orchestration(task)
+        models_config, webgpt_roles, orchestration_validation = apply_webgpt_orchestration(task, models_config)
+        roles = webgpt_roles or decide_model_roles(task, models_config)
+        plan = tool_plan_for(task)
+        need_gpt = bool(plan.get("gpt_modeling", decide_need_gpt_modeling(task, routing_config)))
+        mesa_needed = bool(plan.get("mesa", task.modeling.use_mesa))
+        mesa_reason = task.modeling.mesa_reason
+        if not mesa_needed:
+            mesa_needed, mesa_reason = decide_need_mesa(task, routing_config)
 
-        write_status(job_id, "running", "pydantic_ai_planning", 0.25, task_file=str(task_file), task_id=task.task_id)
+        write_status(job_id, "running", "expert_panel", 0.25, task_file=str(task_file), task_id=task.task_id)
         agent_results, calls = run_expert_panel(task, roles, models_config)
 
         write_status(job_id, "running", "gpt_modeling", 0.45, task_file=str(task_file), task_id=task.task_id)
         modeling_result = build_modeling_result(task, mesa_needed=mesa_needed, mesa_reason=mesa_reason) if need_gpt else {}
+        modeling_result["orchestration_validation"] = orchestration_validation
+        modeling_result["webgpt_declared_roles"] = roles
+        modeling_result["webgpt_tool_plan"] = plan
 
         write_status(job_id, "running", "mesa", 0.65, task_file=str(task_file), task_id=task.task_id)
         mesa_result = run_mesa(task, modeling_result, mesa_config, mesa_needed=mesa_needed, mesa_reason=mesa_reason)
