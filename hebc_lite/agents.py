@@ -72,9 +72,8 @@ def run_expert_panel(task: Task, roles: list[str], models_config: dict[str, Any]
 def _run_openrouter_role(role: str, task: Task, models_config: dict[str, Any], context: dict[str, Any], model_name: str) -> tuple[dict[str, Any], AgentCallRecord]:
     """Run one role through OpenRouter's OpenAI-compatible chat endpoint.
 
-    The repository still keeps Pydantic AI as the expert-panel dependency. This direct HTTP path is used for the
-    smoke test because it is stable across Pydantic AI adapter API changes and still returns structured output.
     The API key is only read from the environment and is never printed or written into outputs.
+    Free-model smoke tests avoid response_format because some free models do not support it.
     """
     payload = {
         "model": model_name,
@@ -84,7 +83,6 @@ def _run_openrouter_role(role: str, task: Task, models_config: dict[str, Any], c
         ],
         "temperature": 0.2,
         "max_tokens": 600,
-        "response_format": {"type": "json_object"},
     }
     request = urllib.request.Request(
         "https://openrouter.ai/api/v1/chat/completions",
