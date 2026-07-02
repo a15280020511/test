@@ -39,5 +39,8 @@
     "red_team",
     "stop_loss",
     "next_actions"
-  ]
+  ],
+  "meta": {
+    "trigger": "workflow_smoke_test"
+  }
 }
