@@ -41,6 +41,6 @@
     "next_actions"
   ],
   "meta": {
-    "trigger": "workflow_smoke_test"
+    "trigger": "real_free_model_smoke_test_20260702_2"
   }
 }
