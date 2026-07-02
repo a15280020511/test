@@ -1,1 +1,67 @@
-{"retention":{"logs_keep_days":7,"temp_keep_days":3,"failed_jobs_keep_days":14,"ordinary_artifacts_keep_days":30,"reports_keep_latest":50,"status_keep_days":30},"never_delete":["reports/final/","artifacts/decision_records/","artifacts/high_value/","configs/","tasks/processed/index.json"],"auto_actions":{"compress_old_artifacts":true,"delete_temp_files":true,"move_completed_tasks":true,"generate_cleanup_report":true}}
+{
+  "version": "2.0",
+  "mode": "scheduled_safe_cleanup",
+  "retention": {
+    "status_keep_days": 30,
+    "ordinary_artifacts_keep_days": 30,
+    "archive_reports_keep_days": 60,
+    "temp_keep_days": 3,
+    "failed_jobs_keep_days": 14,
+    "reports_keep_latest": 50,
+    "artifacts_keep_latest": 50,
+    "status_keep_latest": 100
+  },
+  "policies": [
+    {
+      "name": "status_files",
+      "folder": "jobs/status",
+      "patterns": ["*.json"],
+      "max_age_days": 30,
+      "keep_latest": 100
+    },
+    {
+      "name": "archived_artifacts",
+      "folder": "artifacts/archive",
+      "patterns": ["*.json", "*.md", "*.txt", "*.zip"],
+      "max_age_days": 30,
+      "keep_latest": 50
+    },
+    {
+      "name": "archived_reports",
+      "folder": "reports/archive",
+      "patterns": ["*.md", "*.json", "*.txt"],
+      "max_age_days": 60,
+      "keep_latest": 50
+    },
+    {
+      "name": "temporary_files",
+      "folder": ".",
+      "patterns": ["*.tmp", "*.temp", "*.bak", "*.log"],
+      "max_age_days": 3,
+      "keep_latest": 0
+    }
+  ],
+  "never_delete": [
+    "reports/final/",
+    "reports/latest_report.md",
+    "reports/health_check.md",
+    "reports/plugin_report.md",
+    "reports/upstream_sources_report.md",
+    "reports/maintenance_report.md",
+    "artifacts/latest_result.json",
+    "artifacts/plugin_report.json",
+    "artifacts/upstream_sources_report.json",
+    "artifacts/maintenance_report.json",
+    "artifacts/decision_records/",
+    "artifacts/high_value/",
+    "configs/",
+    "tasks/processed/index.json"
+  ],
+  "auto_actions": {
+    "delete_expired_files": true,
+    "protect_latest_outputs": true,
+    "generate_cleanup_report": true,
+    "commit_cleanup_report": true,
+    "dry_run": false
+  }
+}
