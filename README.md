@@ -39,7 +39,7 @@ task.json
 
 ## Default cost policy
 
-The default configuration is test-mode and zero-spend:
+Routine testing must use mock mode or explicit OpenRouter `:free` models only.
 
 ```text
 allow_paid_models = false
@@ -47,7 +47,16 @@ max_cost_usd_per_task = 0.0
 prefer_free_models = true
 ```
 
-Real OpenRouter calls require `OPENROUTER_API_KEY` in GitHub Secrets and an explicit config change away from zero-spend test mode.
+Live free-model smoke tests require `OPENROUTER_API_KEY` in GitHub Secrets and model ids ending with `:free`.
+
+The current live-test pool is:
+
+```text
+cohere/north-mini-code:free
+nvidia/nemotron-3-ultra-550b-a55b:free
+```
+
+`openrouter:auto` is blocked for default smoke tests because it can route unpredictably.
 
 ## Submit a task
 
@@ -106,6 +115,33 @@ reports/archive/{task_id}.md
 reports/latest_report.md
 artifacts/archive/{task_id}.json
 artifacts/latest_result.json
+```
+
+## Maintenance
+
+Zero-cost maintenance checks can be run with:
+
+```bash
+python -m hebc_lite.maintenance
+```
+
+This writes:
+
+```text
+reports/maintenance_report.md
+artifacts/maintenance_report.json
+```
+
+Maintenance verifies:
+
+```text
+free-model-only live test policy
+blocked openrouter:auto default routing
+health check configuration
+cleanup safety policy
+scheduled workflow presence
+Dependabot configuration
+secret status as exists/missing only
 ```
 
 ## Safety rules
