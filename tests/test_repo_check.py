@@ -26,3 +26,4 @@ def test_repo_check_writes_reports(tmp_path, monkeypatch):
 
 def test_repo_check_pr_smoke_marker():
     assert "free-model-policy".replace("-", "_") == "free_model_policy"
+    assert "ci-smoke".replace("-", "_") == "ci_smoke"
