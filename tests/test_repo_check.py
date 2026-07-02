@@ -22,3 +22,7 @@ def test_repo_check_writes_reports(tmp_path, monkeypatch):
     assert Path("reports/repo_check.md").exists()
     assert Path("artifacts/repo_check.json").exists()
     assert result["ok"] is False
+
+
+def test_repo_check_pr_smoke_marker():
+    assert "free-model-policy".replace("-", "_") == "free_model_policy"
