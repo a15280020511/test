@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "principle": "One table points to upstream expert repositories and package releases. HEBC-Lite monitors and validates them automatically.",
+  "tracking_policy": {
+    "default_mode": "latest_safe_release",
+    "allow_direct_main_tracking": false,
+    "reason": "Release tracking is stable. Direct main branch tracking is high risk and may break without warning.",
+    "automation": ["dependabot", "full_system_check", "upstream_monitor", "health_check", "cleanup"]
+  },
+  "sources": {
+    "pydantic_ai": {
+      "enabled": true,
+      "upstream_repo": "https://github.com/pydantic/pydantic-ai",
+      "repo_full_name": "pydantic/pydantic-ai",
+      "package_manager": "pypi",
+      "package_name": "pydantic-ai",
+      "import_name": "pydantic_ai",
+      "track": "latest_safe_release",
+      "used_by_plugin": "pydantic_ai",
+      "required": true
+    },
+    "mesa": {
+      "enabled": true,
+      "upstream_repo": "https://github.com/projectmesa/mesa",
+      "repo_full_name": "projectmesa/mesa",
+      "package_manager": "pypi",
+      "package_name": "mesa",
+      "import_name": "mesa",
+      "track": "latest_safe_release",
+      "used_by_plugin": "mesa",
+      "required": true
+    }
+  },
+  "zero_daily_maintenance_mode": {
+    "dependency_update_detection": "dependabot_weekly",
+    "full_install_validation": "full_system_check",
+    "plugin_validation": "plugin_report",
+    "upstream_source_validation": "upstream_monitor",
+    "cleanup": "cleanup_workflow",
+    "failure_behavior": "report_and_block_merge"
+  }
+}
