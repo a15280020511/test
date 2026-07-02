@@ -1,0 +1,13 @@
+{
+  "job_id": "fuzhou_security_job_20260702",
+  "task_id": "fuzhou_security_job_20260702",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "task_file": "tasks/inbox/fuzhou_security_job_20260702.json",
+  "report_path": "reports/archive/fuzhou_security_job_20260702.md",
+  "artifact_path": "artifacts/archive/fuzhou_security_job_20260702.json",
+  "started_at": "2026-07-02T18:57:50+09:00",
+  "updated_at": "2026-07-02T18:58:47+09:00",
+  "error": null
+}

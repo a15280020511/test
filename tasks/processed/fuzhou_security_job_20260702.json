@@ -1,0 +1,51 @@
+{
+  "task_id": "fuzhou_security_job_20260702",
+  "task_type": "simulation",
+  "question": "In Fuzhou, for a person choosing security guard work, compare workplaces and employers: office building, residential community, school, government/institution unit, company/factory, shopping mall/commercial complex; compare day shift versus night shift; compare security company, property management company, real-estate company, and direct-hire end-user unit. Decide where and under what arrangement security guard work is best for stable income, low fatigue, low conflict risk, low management pressure, low hidden responsibility, and long-term sustainability.",
+  "background": {
+    "city": "Fuzhou",
+    "user_profile": "currently interested in security guard work and wants to know which workplace, shift, and employer structure is best",
+    "workplace_options": ["office_building", "residential_community", "school", "government_or_institution_unit", "company_or_factory", "shopping_mall_or_commercial_complex"],
+    "shift_options": ["day_shift", "night_shift"],
+    "employer_options": ["security_company_outsourcing", "property_management_company", "real_estate_company", "direct_hire_end_user_unit"],
+    "data_limitation": "This run does not include live Fuzhou job postings, exact wages, or contract texts; it should produce a structured decision and specify what must be verified locally before choosing."
+  },
+  "constraints": {
+    "avoid": ["high conflict with residents or customers", "unclear liability", "excessive patrol intensity", "hidden unpaid overtime", "frequent wage arrears", "high management pressure", "severe sleep damage", "high accident or dispute exposure"],
+    "must_have": ["ranking_by_workplace", "day_vs_night", "employer_structure_comparison", "risk_table", "income_stability", "fatigue_load", "conflict_risk", "trial_plan", "interview_checklist", "stop_conditions", "red_team", "mesa_simulation"]
+  },
+  "modeling": {
+    "use_gpt_modeling": true,
+    "use_mesa": true,
+    "mesa_reason": "Security guard job quality depends on local labor competition, employer outsourcing layers, site workload, shift scheduling, and random dispute events."
+  },
+  "outputs": ["core_conclusion", "ranking_by_workplace", "day_vs_night", "best_employer_type", "risk_table", "interview_checklist", "stop_conditions"],
+  "orchestration": {
+    "strict": true,
+    "roles": ["planner", "modeler", "red_team", "judge", "reporter"],
+    "models": {
+      "planner": "deepseek/deepseek-v4-flash",
+      "modeler": "deepseek/deepseek-v4-flash",
+      "red_team": "deepseek/deepseek-v4-flash",
+      "judge": "deepseek/deepseek-v4-flash",
+      "reporter": "deepseek/deepseek-v4-flash"
+    },
+    "budget": {
+      "test_mode": false,
+      "allow_paid_models": true,
+      "allow_expensive_models": false,
+      "max_cost_usd_per_task": 0.08,
+      "max_calls_per_task": 5
+    },
+    "tool_plan": {
+      "expert_panel": true,
+      "gpt_modeling": true,
+      "mesa": true,
+      "report": true
+    },
+    "fallback": {
+      "on_model_unavailable": "continue",
+      "on_tool_failure": "degrade_and_report"
+    }
+  }
+}
