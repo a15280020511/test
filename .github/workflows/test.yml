@@ -46,3 +46,12 @@ jobs:
           else
             echo "no live free smoke test present"
           fi
+      - name: Upload live smoke output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-free-smoke-output
+          path: |
+            reports/*.md
+            artifacts/*.json
+          if-no-files-found: ignore
