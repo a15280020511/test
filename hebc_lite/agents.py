@@ -98,7 +98,11 @@ def _run_openrouter_role(role: str, task: Task, models_config: dict[str, Any], c
     try:  # pragma: no cover - requires live OpenRouter key and network
         with urllib.request.urlopen(request, timeout=60) as response:
             data = json.loads(response.read().decode("utf-8"))
-        content = data.get("choices", [{}])[0].get("message", {}).get("content", "{}")
+        message = data.get("choices", [{}])[0].get("message", {}) or {}
+        content = message.get("content")
+        if not content:
+            err = "OpenRouter returned empty content."
+            return {"role": role, "status": "failed", "error": err}, AgentCallRecord(role=role, provider="openrouter", model=model_name, status="failed", error=err)
         try:
             output = json.loads(content)
         except json.JSONDecodeError:
@@ -119,9 +123,9 @@ def _run_openrouter_role(role: str, task: Task, models_config: dict[str, Any], c
 def _pick_model(role: str, models_config: dict[str, Any]) -> str:
     pool = models_config.get("model_pool", {})
     if role == "red_team":
-        choices = pool.get("red_team") or pool.get("strong_reasoning") or ["nvidia/nemotron-3-ultra-550b-a55b:free"]
+        choices = pool.get("red_team") or pool.get("strong_reasoning") or pool.get("low_cost") or ["cohere/north-mini-code:free"]
     elif role in {"planner", "judge", "modeler"}:
-        choices = pool.get("strong_reasoning") or pool.get("low_cost") or ["nvidia/nemotron-3-ultra-550b-a55b:free"]
+        choices = pool.get("strong_reasoning") or pool.get("low_cost") or ["cohere/north-mini-code:free"]
     else:
         choices = pool.get("low_cost") or pool.get("free_test") or ["cohere/north-mini-code:free"]
     return choices[0]
