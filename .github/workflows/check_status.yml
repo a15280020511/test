@@ -1,1 +1,14 @@
-name: Reader
+name: Check Status
+on:
+  workflow_dispatch:
+    inputs:
+      job_id:
+        description: "Job ID"
+        required: true
+jobs:
+  check-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print status
+        run: cat "jobs/status/${{ github.event.inputs.job_id }}.status.json"
