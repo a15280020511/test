@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "principle": "External system executes declared plugins; WebGPT supplies task information, model choices, role order, and tool plan.",
+  "plugins": {
+    "pydantic_ai": {
+      "enabled": true,
+      "kind": "agent_framework",
+      "import_name": "pydantic_ai",
+      "required_in_full_ci": true,
+      "role": "expert_agent_framework",
+      "health_check": "import_only",
+      "failure_policy": "report_missing_or_unavailable"
+    },
+    "mesa": {
+      "enabled": true,
+      "kind": "simulation_framework",
+      "import_name": "mesa",
+      "required_in_full_ci": true,
+      "role": "agent_based_simulation",
+      "health_check": "import_and_minimal_run",
+      "failure_policy": "report_missing_or_unavailable"
+    },
+    "openrouter": {
+      "enabled": true,
+      "kind": "model_gateway",
+      "import_name": null,
+      "required_in_full_ci": false,
+      "role": "model_market_gateway",
+      "health_check": "secret_exists_and_optional_live_call",
+      "secret_name": "OPENROUTER_API_KEY",
+      "failure_policy": "stop_or_degrade_by_task_policy"
+    },
+    "webgpt_orchestrator": {
+      "enabled": true,
+      "kind": "human_visible_control_plane",
+      "import_name": null,
+      "required_in_full_ci": false,
+      "role": "task_input_and_model_orchestration_owner",
+      "health_check": "task_contract_validation",
+      "failure_policy": "reject_incomplete_task_contract"
+    }
+  },
+  "execution_contract": {
+    "model_selection_owner": "webgpt_task_input",
+    "role_selection_owner": "webgpt_task_input",
+    "tool_selection_owner": "webgpt_task_input",
+    "external_system_role": "validate_execute_record_report",
+    "external_system_must_not": [
+      "silently_replace_declared_models",
+      "silently_add_paid_models",
+      "silently_disable_requested_plugins",
+      "hide_missing_dependencies"
+    ]
+  }
+}

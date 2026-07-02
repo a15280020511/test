@@ -1,0 +1,46 @@
+{
+  "task_id": "fill_by_webgpt",
+  "task_type": "decision_modeling",
+  "question": "WebGPT writes the full problem here.",
+  "background": {
+    "facts": [],
+    "assumptions": [],
+    "source_notes": []
+  },
+  "constraints": {
+    "avoid": [],
+    "must_have": []
+  },
+  "modeling": {
+    "use_gpt_modeling": true,
+    "use_mesa": false,
+    "mesa_reason": null
+  },
+  "outputs": ["core_conclusion", "variables", "risks", "action_plan", "stop_conditions"],
+  "orchestration": {
+    "strict": true,
+    "roles": ["planner", "red_team", "judge"],
+    "models": {
+      "planner": "MODEL_ID_CHOSEN_BY_WEBGPT",
+      "red_team": "MODEL_ID_CHOSEN_BY_WEBGPT",
+      "judge": "MODEL_ID_CHOSEN_BY_WEBGPT"
+    },
+    "budget": {
+      "test_mode": false,
+      "allow_paid_models": false,
+      "allow_expensive_models": false,
+      "max_cost_usd_per_task": 0.0,
+      "max_calls_per_task": 3
+    },
+    "tool_plan": {
+      "expert_panel": true,
+      "gpt_modeling": true,
+      "mesa": false,
+      "report": true
+    },
+    "fallback": {
+      "on_model_unavailable": "stop_and_report",
+      "on_tool_failure": "degrade_and_report"
+    }
+  }
+}

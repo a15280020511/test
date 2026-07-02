@@ -6,8 +6,10 @@ import os
 from pathlib import Path
 from typing import Any
 
+from .plugin_registry import check_plugins
+
 REQUIRED_DIRS = ["tasks/inbox", "tasks/processed", "jobs/status", "reports/archive", "artifacts/archive", "configs"]
-REQUIRED_CONFIGS = ["models.json", "routing.json", "mesa.json", "cleanup.json", "safety.json", "free_model_policy.json"]
+REQUIRED_CONFIGS = ["models.json", "routing.json", "mesa.json", "cleanup.json", "safety.json", "free_model_policy.json", "plugins.json"]
 REQUIRED_IMPORTS = ["pydantic", "pydantic_ai", "mesa"]
 REQUIRED_WORKFLOWS = ["run_task.yml", "test.yml", "health_check.yml", "cleanup.yml", "check_status.yml", "maintenance.yml"]
 
@@ -40,6 +42,7 @@ def check_health() -> dict[str, Any]:
 
     workflows = {name: (Path(".github/workflows") / name).exists() for name in REQUIRED_WORKFLOWS}
     free_model_policy = validate_free_model_policy(loaded_configs.get("models.json", {}), loaded_configs.get("free_model_policy.json", {}))
+    plugin_report = check_plugins(loaded_configs.get("plugins.json", {"plugins": {}}), full_ci=os.getenv("HEBC_FULL_CI") == "1")
     maintenance = {
         "dependabot_config_exists": Path(".github/dependabot.yml").exists(),
         "scheduled_health_check": workflows.get("health_check.yml", False),
@@ -53,6 +56,7 @@ def check_health() -> dict[str, Any]:
         "secrets": {"OPENROUTER_API_KEY": "exists" if os.getenv("OPENROUTER_API_KEY") else "missing"},
         "writable": writable,
         "imports": imports,
+        "plugins": plugin_report,
         "workflows": workflows,
         "free_model_policy": free_model_policy,
         "maintenance": maintenance,
@@ -63,6 +67,7 @@ def check_health() -> dict[str, Any]:
         and all(writable.values())
         and imports.get("pydantic", False)
         and free_model_policy.get("ok", False)
+        and plugin_report.get("ok", False)
         and all(maintenance.values())
     )
     return result

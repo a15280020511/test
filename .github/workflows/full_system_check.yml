@@ -1,0 +1,51 @@
+name: Full System Check
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "hebc_lite/**"
+      - "configs/**"
+      - "tests/**"
+      - "pyproject.toml"
+      - ".github/workflows/full_system_check.yml"
+jobs:
+  full-system-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install full package
+        run: |
+          python -m pip install -U pip
+          pip install -e .
+          pip install pytest
+      - name: Full plugin report
+        env:
+          HEBC_FULL_CI: "1"
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python -m hebc_lite.plugin_registry
+      - name: Upstream source report
+        run: python -m hebc_lite.upstream_monitor
+      - name: Health check
+        env:
+          HEBC_FULL_CI: "1"
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python -m hebc_lite.health_check
+      - name: Operations report
+        env:
+          HEBC_FULL_CI: "1"
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python -m hebc_lite.maintenance_report
+      - name: Run tests
+        run: pytest -q
+      - name: Upload full check output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-system-check-output
+          path: |
+            reports/*.md
+            artifacts/*.json
+          if-no-files-found: ignore
