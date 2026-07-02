@@ -1,0 +1,13 @@
+{
+  "job_id": "example_decision_task",
+  "task_id": "example_decision_task",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "task_file": "tasks/inbox/example_task.json",
+  "report_path": "reports/archive/example_decision_task.md",
+  "artifact_path": "artifacts/archive/example_decision_task.json",
+  "started_at": "2026-07-02T17:00:43+09:00",
+  "updated_at": "2026-07-02T17:00:44+09:00",
+  "error": null
+}
