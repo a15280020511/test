@@ -1,0 +1,24 @@
+{
+  "limits": {
+    "max_task_runtime_seconds": 600,
+    "max_model_calls": 5,
+    "max_cost_usd": 0.0,
+    "max_artifact_mb": 20,
+    "max_report_mb": 5,
+    "max_log_mb": 10
+  },
+  "secrets": {
+    "forbid_printing_env": true,
+    "forbid_writing_secrets_to_artifact": true,
+    "allowed_env_keys": [
+      "OPENROUTER_API_KEY"
+    ]
+  },
+  "failure_policy": {
+    "on_timeout": "mark_failed_and_write_artifact",
+    "on_model_error": "fallback_or_stop",
+    "on_mesa_error": "write_partial_report",
+    "on_missing_secret": "mark_failed",
+    "on_invalid_task": "mark_failed"
+  }
+}
