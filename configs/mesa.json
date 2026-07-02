@@ -1,0 +1,29 @@
+{
+  "mesa": {
+    "enabled": false,
+    "default_steps": 100,
+    "default_agents": 50,
+    "random_seed": 42,
+    "timeout_seconds": 180,
+    "require_explicit_reason": true
+  },
+  "models": {
+    "market_competition": {
+      "enabled": true,
+      "description": "Simulate multiple actors competing for limited demand, orders, resources, or returns."
+    },
+    "platform_dispatch": {
+      "enabled": true,
+      "description": "Simulate platform dispatch and allocation among drivers or riders."
+    },
+    "spatial_market": {
+      "enabled": true,
+      "description": "Simulate location and area differences in returns."
+    }
+  },
+  "outputs": {
+    "include_summary": true,
+    "include_agent_stats": true,
+    "include_warnings": true
+  }
+}
