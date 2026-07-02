@@ -1,7 +1,7 @@
 {
   "task_id": "example_decision_task",
   "task_type": "decision_modeling",
-  "question": "Compare several practical work options under low-cost and low-maintenance constraints.",
+  "question": "Run a real free-model smoke test and compare practical work options under low-cost and low-maintenance constraints.",
   "background": {
     "location": "Fuzhou",
     "current_job": "night work",
@@ -41,6 +41,6 @@
     "next_actions"
   ],
   "meta": {
-    "trigger": "real_free_model_smoke_test_20260702_2"
+    "trigger": "real_free_model_key_present_test_20260702_1"
   }
 }
