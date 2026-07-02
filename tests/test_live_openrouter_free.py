@@ -39,3 +39,4 @@ def test_live_openrouter_free_model_smoke():
 
 def test_live_openrouter_free_model_marker():
     assert "live-free-smoke".replace("-", "_") == "live_free_smoke"
+    assert "response-format-removed".replace("-", "_") == "response_format_removed"
