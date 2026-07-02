@@ -6,6 +6,12 @@ on:
         description: "Path to task JSON"
         required: true
         default: "tasks/inbox/example_task.json"
+  pull_request:
+    paths:
+      - "tasks/inbox/*.json"
+      - "configs/models.json"
+      - "hebc_lite/**"
+      - ".github/workflows/run_task.yml"
   push:
     paths:
       - "tasks/inbox/*.json"
