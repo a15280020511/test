@@ -1,48 +1,33 @@
 {
   "provider": "openrouter",
   "budget": {
-    "test_mode": true,
+    "test_mode": false,
     "prefer_free_models": true,
     "max_calls_per_task": 5,
     "max_cost_usd_per_task": 0.0,
     "allow_paid_models": false,
-    "allow_expensive_models": false
+    "allow_expensive_models": false,
+    "real_free_model_test": true
   },
   "roles": {
     "planner": {
-      "capability": [
-        "reasoning",
-        "structured_output"
-      ],
+      "capability": ["reasoning", "structured_output"],
       "max_calls": 1
     },
     "modeler": {
-      "capability": [
-        "reasoning",
-        "modeling",
-        "structured_output"
-      ],
+      "capability": ["reasoning", "modeling", "structured_output"],
       "max_calls": 1
     },
     "red_team": {
-      "capability": [
-        "different_family",
-        "reasoning"
-      ],
+      "capability": ["different_family", "reasoning"],
       "max_calls": 1
     },
     "judge": {
-      "capability": [
-        "reasoning",
-        "structured_output"
-      ],
+      "capability": ["reasoning", "structured_output"],
       "max_calls": 1
     },
     "reporter": {
-      "capability": [
-        "summarization",
-        "structured_output"
-      ],
+      "capability": ["summarization", "structured_output"],
       "max_calls": 1
     }
   },
@@ -55,17 +40,9 @@
     "on_tool_failure": "degrade_and_report"
   },
   "model_pool": {
-    "free_test": [
-      "openrouter:auto"
-    ],
-    "low_cost": [
-      "openrouter:auto"
-    ],
-    "strong_reasoning": [
-      "openrouter:auto"
-    ],
-    "red_team": [
-      "openrouter:auto"
-    ]
+    "free_test": ["cohere/north-mini-code:free"],
+    "low_cost": ["cohere/north-mini-code:free"],
+    "strong_reasoning": ["nvidia/nemotron-3-ultra-550b-a55b:free"],
+    "red_team": ["nvidia/nemotron-3-ultra-550b-a55b:free"]
   }
 }
