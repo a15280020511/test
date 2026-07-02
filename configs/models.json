@@ -40,9 +40,9 @@
     "on_tool_failure": "degrade_and_report"
   },
   "model_pool": {
-    "free_test": ["cohere/north-mini-code:free"],
-    "low_cost": ["cohere/north-mini-code:free"],
-    "strong_reasoning": ["cohere/north-mini-code:free"],
-    "red_team": ["cohere/north-mini-code:free"]
+    "free_test": ["meta-llama/llama-3.2-3b-instruct:free"],
+    "low_cost": ["meta-llama/llama-3.2-3b-instruct:free"],
+    "strong_reasoning": ["meta-llama/llama-3.2-3b-instruct:free"],
+    "red_team": ["meta-llama/llama-3.2-3b-instruct:free"]
   }
 }
