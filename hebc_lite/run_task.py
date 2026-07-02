@@ -51,6 +51,7 @@ def run_task(task_file: str | Path) -> int:
         write_status(job_id, "running", "writing_report", 0.85, task_file=str(task_file), task_id=task.task_id)
         report_path, artifact_path = write_outputs(task, modeling_result, mesa_result, agent_results, calls)
         write_status(job_id, "completed", "done", 1.0, report_path=report_path, artifact_path=artifact_path, task_file=str(task_file), task_id=task.task_id)
+        print_run_summary(job_id, "completed", report_path, artifact_path, calls, None)
         _move_processed(task_file)
         return 0
     except Exception as exc:
@@ -62,7 +63,33 @@ def run_task(task_file: str | Path) -> int:
         calls: list[AgentCallRecord] = []
         report_path, artifact_path = write_outputs(task, {}, {}, {}, calls, error=error)
         write_status(job_id, "failed", "failed", 1.0, report_path=report_path, artifact_path=artifact_path, error=error, task_file=str(task_file), task_id=job_id)
+        print_run_summary(job_id, "failed", report_path, artifact_path, calls, error)
         return 1
+
+
+def print_run_summary(job_id: str, status: str, report_path: str, artifact_path: str, calls: list[AgentCallRecord], error: str | None) -> None:
+    summary = {
+        "job_id": job_id,
+        "status": status,
+        "report_path": report_path,
+        "artifact_path": artifact_path,
+        "total_cost_usd": round(sum(call.cost_usd for call in calls), 8),
+        "calls": [
+            {
+                "role": call.role,
+                "provider": call.provider,
+                "model": call.model,
+                "status": call.status,
+                "cost_usd": call.cost_usd,
+                "error": call.error,
+            }
+            for call in calls
+        ],
+        "error": error,
+    }
+    print("HEBC_LITE_RUN_SUMMARY_START")
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
+    print("HEBC_LITE_RUN_SUMMARY_END")
 
 
 def _format_error(exc: Exception) -> str:
