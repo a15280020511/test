@@ -6,6 +6,7 @@ import urllib.error
 import urllib.request
 from typing import Any
 
+from .orchestration import model_for_role
 from .schemas import AgentCallRecord, Task
 
 _SAFE_MOCK_OUTPUTS = {
@@ -70,11 +71,7 @@ def run_expert_panel(task: Task, roles: list[str], models_config: dict[str, Any]
 
 
 def _run_openrouter_role(role: str, task: Task, models_config: dict[str, Any], context: dict[str, Any], model_name: str) -> tuple[dict[str, Any], AgentCallRecord]:
-    """Run one role through OpenRouter's OpenAI-compatible chat endpoint.
-
-    The API key is only read from the environment and is never printed or written into outputs.
-    Free-model smoke tests avoid response_format because some free models do not support it.
-    """
+    """Run one role through OpenRouter's OpenAI-compatible chat endpoint."""
     payload = {
         "model": model_name,
         "messages": [
@@ -109,7 +106,8 @@ def _run_openrouter_role(role: str, task: Task, models_config: dict[str, Any], c
             output = {"summary": content}
         if not isinstance(output, dict):
             output = {"summary": str(output)}
-        output.update({"role": role, "mode": "openrouter_free_model", "model": model_name, "cost_usd": 0.0})
+        mode = "openrouter_free_model" if is_free_openrouter_model(model_name) else "openrouter_live_model"
+        output.update({"role": role, "mode": mode, "model": model_name, "cost_usd": 0.0})
         return output, AgentCallRecord(role=role, provider="openrouter", model=model_name, status="ok", cost_usd=0.0)
     except urllib.error.HTTPError as exc:
         body = exc.read().decode("utf-8", errors="replace")[:1000]
@@ -121,7 +119,12 @@ def _run_openrouter_role(role: str, task: Task, models_config: dict[str, Any], c
 
 
 def _pick_model(role: str, models_config: dict[str, Any]) -> str:
+    declared = model_for_role(role, models_config)
+    if declared:
+        return declared
     pool = models_config.get("model_pool", {})
+    if role in pool:
+        return pool[role][0]
     if role == "red_team":
         choices = pool.get("red_team") or pool.get("strong_reasoning") or pool.get("low_cost") or ["cohere/north-mini-code:free"]
     elif role in {"planner", "judge", "modeler"}:
