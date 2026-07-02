@@ -1,0 +1,13 @@
+{
+  "job_id": "fuzhou_side_job_20260702",
+  "task_id": "fuzhou_side_job_20260702",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "task_file": "tasks/inbox/fuzhou_side_job_20260702.json",
+  "report_path": "reports/archive/fuzhou_side_job_20260702.md",
+  "artifact_path": "artifacts/archive/fuzhou_side_job_20260702.json",
+  "started_at": "2026-07-02T18:28:57+09:00",
+  "updated_at": "2026-07-02T18:30:08+09:00",
+  "error": null
+}

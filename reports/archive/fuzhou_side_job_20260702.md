@@ -1,0 +1,349 @@
+# Core conclusion
+After weighing evidence from planner, modeler, and red team, the most sustainable and low-risk choice for a Fuzhou night-shift security guard is to keep the baseline security guard job. Side income options introduce significant risks of sleep disruption, fatigue, accident exposure, and hidden costs that outweigh potential extra net income, especially given the guard's night shift schedule and low tolerance for upfront costs. If the guard insists on a side income, food delivery (Meituan) is the least bad option, but only with strict sleep management and a one-week trial to verify actual earnings and conditions.
+
+# Task summary
+- task_id: `fuzhou_side_job_20260702`
+- task_type: `simulation`
+- question: For a Fuzhou night-shift security guard, compare these income choices: keep security guard job as baseline, drive ride-hailing, deliver food, deliver Pupu/grocery orders. Decide which option is best for sustainable net income with low upfront cost, low fatigue, low accident exposure, low exit cost, and low maintenance.
+
+# GPT modeling result
+```json
+{
+  "variables": [
+    {
+      "name": "net_income",
+      "description": "Income after cost, deposits, rent, platform fees, and time cost."
+    },
+    {
+      "name": "compliance_risk",
+      "description": "License, platform rule, contract, and work constraint risk."
+    },
+    {
+      "name": "health_load",
+      "description": "Sleep, physical load, accident risk, and long-term sustainability."
+    },
+    {
+      "name": "maintenance_cost",
+      "description": "Learning, equipment, deposits, accounts, and time management."
+    },
+    {
+      "name": "reversibility",
+      "description": "Ability to exit after trial without high sunk cost."
+    },
+    {
+      "name": "ranking",
+      "description": "User-required decision variable."
+    },
+    {
+      "name": "net_income_logic",
+      "description": "User-required decision variable."
+    },
+    {
+      "name": "fatigue_risk",
+      "description": "User-required decision variable."
+    },
+    {
+      "name": "entry_cost",
+      "description": "User-required decision variable."
+    },
+    {
+      "name": "exit_cost",
+      "description": "User-required decision variable."
+    },
+    {
+      "name": "trial_plan",
+      "description": "User-required decision variable."
+    },
+    {
+      "name": "stop_conditions",
+      "description": "User-required decision variable."
+    },
+    {
+      "name": "red_team",
+      "description": "User-required decision variable."
+    },
+    {
+      "name": "mesa_simulation",
+      "description": "User-required decision variable."
+    }
+  ],
+  "assumptions": [
+    "Prefer low maintenance, low cost, and low legal risk.",
+    "Do not assume high deposit, vehicle purchase, or long-term heavy labor is acceptable unless explicitly allowed.",
+    "Version one uses structural modeling first and does not disguise language reasoning as strict numerical simulation.",
+    "Hard avoid constraint: large vehicle purchase.",
+    "Hard avoid constraint: high deposit.",
+    "Hard avoid constraint: long daytime work after night shift.",
+    "Hard avoid constraint: high accident exposure.",
+    "Hard avoid constraint: unclear platform penalties.",
+    "Hard avoid constraint: irreversible commitment."
+  ],
+  "causal_chain": [
+    "Environment and constraints define the option space.",
+    "Resources, cost, compliance, and physical load shape net return and sustainability.",
+    "High-uncertainty variables require warning indicators and stop-loss rules.",
+    "The final path should prefer low legal risk, low sunk cost, and reversible testing."
+  ],
+  "scenario_tree": {
+    "base_case": "Use conservative assumptions and validate with a small trial.",
+    "upside_case": "If key variables improve, scale only after evidence is collected.",
+    "downside_case": "If return, compliance, or health variables worsen, trigger stop-loss."
+  },
+  "risk_factors": [
+    {
+      "risk": "overconfidence",
+      "control": "Require red-team objections and disconfirming variables."
+    },
+    {
+      "risk": "hidden_cost",
+      "control": "Include deposits, equipment, commute, and sleep loss in total cost."
+    },
+    {
+      "risk": "model_error",
+      "control": "Expose uncertainty instead of pretending certainty."
+    },
+    {
+      "risk": "illegal_path",
+      "control": "Reject unlicensed or high-risk routes."
+    }
+  ],
+  "decision_options": [
+    {
+      "option": "status_quo",
+      "description": "Keep the current path as a low-risk baseline."
+    },
+    {
+      "option": "small_trial",
+      "description": "Run a low-deposit, short-cycle, reversible test."
+    },
+    {
+      "option": "reject_high_risk",
+      "description": "Reject high-deposit, illegal, or sleep-damaging routes."
+    }
+  ],
+  "mesa_recommendation": {
+    "needed": true,
+    "reason": "Delivery and ride-hailing earnings depend on many workers competing for limited orders and time windows.",
+    "matched_keywords": []
+  },
+  "uncertainties": [
+    "Without real cost and demand data, the result is structured judgment rather than strict numerical simulation.",
+    "External model output is evidence or review input, not final truth."
+  ],
+  "orchestration_validation": {
+    "ok": true,
+    "mode": "webgpt_orchestrated",
+    "roles": [
+      "planner",
+      "modeler",
+      "red_team",
+      "judge",
+      "reporter"
+    ],
+    "tool_plan": {
+      "expert_panel": true,
+      "gpt_modeling": true,
+      "mesa": true,
+      "report": true
+    },
+    "budget": {
+      "test_mode": false,
+      "allow_paid_models": true,
+      "allow_expensive_models": false,
+      "max_cost_usd_per_task": 0.08,
+      "max_calls_per_task": 5
+    }
+  },
+  "webgpt_declared_roles": [
+    "planner",
+    "modeler",
+    "red_team",
+    "judge",
+    "reporter"
+  ],
+  "webgpt_tool_plan": {
+    "expert_panel": true,
+    "gpt_modeling": true,
+    "mesa": true,
+    "report": true
+  }
+}
+```
+
+# Key variables
+- **net_income**: Income after cost, deposits, rent, platform fees, and time cost.
+- **compliance_risk**: License, platform rule, contract, and work constraint risk.
+- **health_load**: Sleep, physical load, accident risk, and long-term sustainability.
+- **maintenance_cost**: Learning, equipment, deposits, accounts, and time management.
+- **reversibility**: Ability to exit after trial without high sunk cost.
+- **ranking**: User-required decision variable.
+- **net_income_logic**: User-required decision variable.
+- **fatigue_risk**: User-required decision variable.
+- **entry_cost**: User-required decision variable.
+- **exit_cost**: User-required decision variable.
+- **trial_plan**: User-required decision variable.
+- **stop_conditions**: User-required decision variable.
+- **red_team**: User-required decision variable.
+- **mesa_simulation**: User-required decision variable.
+
+# Key assumptions
+- Prefer low maintenance, low cost, and low legal risk.
+- Do not assume high deposit, vehicle purchase, or long-term heavy labor is acceptable unless explicitly allowed.
+- Version one uses structural modeling first and does not disguise language reasoning as strict numerical simulation.
+- Hard avoid constraint: large vehicle purchase.
+- Hard avoid constraint: high deposit.
+- Hard avoid constraint: long daytime work after night shift.
+- Hard avoid constraint: high accident exposure.
+- Hard avoid constraint: unclear platform penalties.
+- Hard avoid constraint: irreversible commitment.
+
+# Causal chain
+- Environment and constraints define the option space.
+- Resources, cost, compliance, and physical load shape net return and sustainability.
+- High-uncertainty variables require warning indicators and stop-loss rules.
+- The final path should prefer low legal risk, low sunk cost, and reversible testing.
+
+# Scenario tree
+```json
+{
+  "base_case": "Use conservative assumptions and validate with a small trial.",
+  "upside_case": "If key variables improve, scale only after evidence is collected.",
+  "downside_case": "If return, compliance, or health variables worsen, trigger stop-loss."
+}
+```
+
+# Mesa enabled
+```json
+{
+  "needed": true,
+  "reason": "Delivery and ride-hailing earnings depend on many workers competing for limited orders and time windows.",
+  "matched_keywords": []
+}
+```
+
+# Mesa result
+```json
+{
+  "engine": "mesa",
+  "enabled": true,
+  "status": "completed",
+  "model_type": "market_competition",
+  "steps": 100,
+  "agents": 50,
+  "reason": "Delivery and ride-hailing earnings depend on many workers competing for limited orders and time windows.",
+  "summary": {
+    "mean_score": 23.5084,
+    "min_score": 10.6957,
+    "max_score": 37.1518,
+    "inequality_gap_p80_p20": 8.8565,
+    "interpretation": "With limited demand, returns can diverge under competition and random allocation."
+  },
+  "agent_stats": {
+    "top_5_scores": [
+      31.2109,
+      31.4775,
+      31.9467,
+      36.4115,
+      37.1518
+    ],
+    "bottom_5_scores": [
+      10.6957,
+      11.4191,
+      15.1617,
+      16.14,
+      16.2089
+    ]
+  },
+  "warnings": [
+    "This is a first-version minimal Mesa-compatible runner, not an industry-grade simulation."
+  ]
+}
+```
+
+# Red-team review
+```json
+{
+  "summary": "{\n  \"summary\": \"The planner and modeler recommend food delivery as the best option for a Fuzhou night-shift security guard, citing low entry cost, moderate fatigue, and easy exit. However, several assumptions are weak or contradicted by known conditions for night-shift workers and delivery platform realities.\",\n  \"weak_assumptions\": [\n    \"E-bike rental deposit of 200-500 CNY is easily available with no hidden fees; many platforms require purchase or higher deposits.\",\n    \"Working morning/evening shifts does not significantly interfere with post-night-shift sleep; in reality, daytime sleep is fragile and deliveries during peak hours may overlap with needed rest.\",\n    \"Low accident exposure for e-bike delivery; Fuzhou traffic is congested, and delivery workers face high accident risk due to time pressure and fatigue.\",\n    \"Easy exit after one-week trial; platforms often have minimum order commitments, training fees, or penalties for quitting early.\",\n    \"Net income of 60-100 CNY per 2-3 hour shift after platform fees; actual earnings can be lower due to competition, low order density, and high platform commissions.\",\n    \"Food delivery orders are consistently available during morning/evening hours; lunch and dinner peaks may conflict with the guard's sleep schedule.\",\n    \"Pupu grocery delivery's heavier loads are manageable without significant physical strain; carrying water and rice on an e-bike increases fatigue and accident risk.\",\n    \"The security guard can safely operate an e-bike after a full night shift; fatigue impairs reaction time and judgment, raising accident probability.\"\n  ],\n  \"disconfirming_evidence\": [\n    \"Many food delivery platforms require a health certificate and registration fees, adding upfront cost and time not accounted for.\",\n    \"Insurance costs for delivery workers are often deducted from earnings or required upfront, reducing net income.\",\n    \"Night-shift workers typically need 7-9 hours of uninterrupted daytime sleep; morning or evening delivery work can fragment sleep and worsen health.\",\n    \"In Fuzhou, e-bike traffic regulations are strict; fines for violations (e.g., speeding, wrong lane) can cut into earnings.\",\n    \"Platform rating systems penalize new workers with lower order priority, making initial income even lower than projected.\",\n    \"Pupu delivery may require carrying heavy items up stairs in older buildings, increasing physical strain and time per order.\",\n    \"Ride-hailing is rejected largely on cost, but a used scooter or cheap car could reduce entry cost; the analysis dismisses this without exploring alternatives.\"\n  ],\n  \"recommendation\": \"Reconsider the baseline security guard job as the safest option, or explore very part-time food delivery only during low-traffic hours (e.g., 10am-12pm) with strict sleep management. Prioritize verifying local platform terms, e-bike rental contracts, and actual earnings data from current delivery workers in Fuzhou before committing.\",\n  \"confidence\": \"",
+  "role": "red_team",
+  "mode": "openrouter_live_model",
+  "model": "deepseek/deepseek-v4-flash",
+  "cost_usd": 0.0
+}
+```
+
+# Stop conditions
+- Stop when trial evidence is below the baseline.
+- Stop when cost, fatigue, or operational risk rises above tolerance.
+
+# Uncertainty
+- Without real cost and demand data, the result is structured judgment rather than strict numerical simulation.
+- External model output is evidence or review input, not final truth.
+
+# Cost and call records
+- total_cost_usd: `0.0`
+```json
+[
+  {
+    "role": "planner",
+    "provider": "openrouter",
+    "model": "deepseek/deepseek-v4-flash",
+    "status": "ok",
+    "cost_usd": 0.0,
+    "error": null
+  },
+  {
+    "role": "modeler",
+    "provider": "openrouter",
+    "model": "deepseek/deepseek-v4-flash",
+    "status": "ok",
+    "cost_usd": 0.0,
+    "error": null
+  },
+  {
+    "role": "red_team",
+    "provider": "openrouter",
+    "model": "deepseek/deepseek-v4-flash",
+    "status": "ok",
+    "cost_usd": 0.0,
+    "error": null
+  },
+  {
+    "role": "judge",
+    "provider": "openrouter",
+    "model": "deepseek/deepseek-v4-flash",
+    "status": "ok",
+    "cost_usd": 0.0,
+    "error": null
+  },
+  {
+    "role": "reporter",
+    "provider": "openrouter",
+    "model": "deepseek/deepseek-v4-flash",
+    "status": "ok",
+    "cost_usd": 0.0,
+    "error": null
+  }
+]
+```
+
+# Final judgment
+```json
+{
+  "summary": "After weighing evidence from planner, modeler, and red team, the most sustainable and low-risk choice for a Fuzhou night-shift security guard is to keep the baseline security guard job. Side income options introduce significant risks of sleep disruption, fatigue, accident exposure, and hidden costs that outweigh potential extra net income, especially given the guard's night shift schedule and low tolerance for upfront costs. If the guard insists on a side income, food delivery (Meituan) is the least bad option, but only with strict sleep management and a one-week trial to verify actual earnings and conditions.",
+  "risks": [
+    "Sleep disruption: Daytime recovery sleep is fragile; delivery work during peak hours may fragment sleep and worsen health.",
+    "Accident exposure: E-bike delivery in Fuzhou traffic carries high accident risk, exacerbated by fatigue from night shift.",
+    "Hidden costs: Health certificates, registration fees, platform deductibles, and higher than expected deposits reduce net income.",
+    "Uncertain earnings: Competition and low order density can make actual income much lower than projections (e.g., 60-100 CNY per shift).",
+    "Exit barriers: Platforms may have minimum order commitments or penalties, making a one-week trial not truly reversible.",
+    "Physical strain: Grocery delivery (Pupu) often involves heavy loads (water, rice) increasing fatigue and injury risk.",
+    "Regulatory risk: E-bike traffic fines and platform rating penalties can cut into earnings, especially for new workers."
+  ],
+  "recommendation": "Baseline (security guard) – no side income is the safest and most sustainable option. If additional income is necessary, a very limited food delivery trial (e.g., 10am-12pm non-peak, max 2 hours/day, with strict sleep schedule) is the next best; but the guard must verify local platform terms, actual earnings, and exit conditions before committing. Ride-hailing and Pupu grocery delivery are not recommended due to higher costs, fatigue, or physical demands.",
+  "confidence": "Moderate. The general risks for night-shift workers are well-documented, but local variation in platform terms, traffic conditions, and individual health resilience could alter the balance. A one-week trial with careful sleep monitoring is essential before any long-term decision.",
+  "role": "judge",
+  "mode": "openrouter_live_model",
+  "model": "deepseek/deepseek-v4-flash",
+  "cost_usd": 0.0
+}
+```
