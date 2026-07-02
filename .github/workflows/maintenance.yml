@@ -13,3 +13,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Maintenance marker
+        run: echo "maintenance workflow installed"
