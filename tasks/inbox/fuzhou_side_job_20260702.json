@@ -1,0 +1,50 @@
+{
+  "task_id": "fuzhou_side_job_20260702",
+  "task_type": "simulation",
+  "question": "For a Fuzhou night-shift security guard, compare these income choices: keep security guard job as baseline, drive ride-hailing, deliver food, deliver Pupu/grocery orders. Decide which option is best for sustainable net income with low upfront cost, low fatigue, low accident exposure, low exit cost, and low maintenance.",
+  "background": {
+    "city": "Fuzhou",
+    "user_profile": "night-shift security guard, wants practical side income or better income path",
+    "options": ["security_guard_baseline", "ride_hailing", "food_delivery", "pupu_grocery_delivery"],
+    "known_constraints": ["low upfront cost", "low deposit", "avoid sleep damage", "avoid high accident exposure", "avoid high vehicle cost", "prefer reversible one-week trial"],
+    "data_limitation": "This run does not include live platform order data or local recruitment contracts; it should make a structured decision and specify what must be verified locally."
+  },
+  "constraints": {
+    "avoid": ["large vehicle purchase", "high deposit", "long daytime work after night shift", "high accident exposure", "unclear platform penalties", "irreversible commitment"],
+    "must_have": ["ranking", "net_income_logic", "fatigue_risk", "entry_cost", "exit_cost", "trial_plan", "stop_conditions", "red_team", "mesa_simulation"]
+  },
+  "modeling": {
+    "use_gpt_modeling": true,
+    "use_mesa": true,
+    "mesa_reason": "Delivery and ride-hailing earnings depend on many workers competing for limited orders and time windows."
+  },
+  "outputs": ["core_conclusion", "ranking", "variables", "risk_table", "one_week_trial_plan", "stop_conditions"],
+  "orchestration": {
+    "strict": true,
+    "roles": ["planner", "modeler", "red_team", "judge", "reporter"],
+    "models": {
+      "planner": "deepseek/deepseek-v4-flash",
+      "modeler": "deepseek/deepseek-v4-flash",
+      "red_team": "deepseek/deepseek-v4-flash",
+      "judge": "deepseek/deepseek-v4-flash",
+      "reporter": "deepseek/deepseek-v4-flash"
+    },
+    "budget": {
+      "test_mode": false,
+      "allow_paid_models": true,
+      "allow_expensive_models": false,
+      "max_cost_usd_per_task": 0.08,
+      "max_calls_per_task": 5
+    },
+    "tool_plan": {
+      "expert_panel": true,
+      "gpt_modeling": true,
+      "mesa": true,
+      "report": true
+    },
+    "fallback": {
+      "on_model_unavailable": "stop_and_report",
+      "on_tool_failure": "degrade_and_report"
+    }
+  }
+}
