@@ -29,7 +29,11 @@ jobs:
         run: |
           TASK_FILE="${{ github.event.inputs.task_file }}"
           if [ -z "$TASK_FILE" ]; then
-            TASK_FILE=$(ls -t tasks/inbox/*.json | head -n 1)
+            TASK_FILE=$(find tasks/inbox -maxdepth 1 -name "*.json" -type f | sort | tail -n 1)
+          fi
+          if [ -z "$TASK_FILE" ] || [ ! -f "$TASK_FILE" ]; then
+            echo "No task JSON found under tasks/inbox; nothing to run."
+            exit 0
           fi
           python -m hebc_lite.run_task --task "$TASK_FILE"
       - name: Commit outputs
