@@ -1,1 +1,43 @@
-{}
+{
+  "task_id": "example_decision_task",
+  "task_type": "decision_modeling",
+  "question": "Compare several practical work options under low-cost and low-maintenance constraints.",
+  "background": {
+    "location": "Fuzhou",
+    "current_job": "night work",
+    "preferences": [
+      "stable",
+      "low maintenance",
+      "low cost",
+      "reversible"
+    ]
+  },
+  "constraints": {
+    "avoid": [
+      "high deposit",
+      "high fixed cost",
+      "heavy sleep damage"
+    ],
+    "must_have": [
+      "net income",
+      "compliance",
+      "physical load",
+      "stop conditions"
+    ]
+  },
+  "modeling": {
+    "use_gpt_modeling": true,
+    "use_mesa": false,
+    "mesa_reason": null
+  },
+  "outputs": [
+    "core_conclusion",
+    "variables",
+    "assumptions",
+    "scenario_tree",
+    "risk_analysis",
+    "red_team",
+    "stop_loss",
+    "next_actions"
+  ]
+}
